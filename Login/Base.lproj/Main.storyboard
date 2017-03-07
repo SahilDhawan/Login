@@ -92,6 +92,9 @@
                                 <state key="normal" title="Register">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GWn-JQ-rUs"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KbP-yb-HKM">
                                 <rect key="frame" x="28" y="199" width="319" height="29"/>
@@ -117,7 +120,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailTextField" destination="6tV-eQ-fF1" id="HSi-b8-l0o"/>
                         <outlet property="entryView" destination="fvY-3n-TIV" id="LvQ-Gx-EXd"/>
+                        <outlet property="nameTextField" destination="8Rj-NK-ZrR" id="Pvk-aM-kih"/>
+                        <outlet property="passwordTextField" destination="W9c-Jt-OXG" id="fdg-GV-wH8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
