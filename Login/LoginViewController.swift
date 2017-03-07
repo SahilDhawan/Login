@@ -38,19 +38,40 @@ class LoginViewController: UIViewController {
     
     @IBAction func registerPressed(_ sender: Any) {
         
-        guard let email = emailTextField.text,  let password = passwordTextField.text else
+        guard let email = emailTextField.text,  let password = passwordTextField.text, let name = nameTextField.text else
         {
             print("Form Entries are not valid")
             return
         }
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
-//            if error != nil
-//            {
-//                print("Error in Authentication")
-//                return
-//            }
+            if error != nil
+            {
+                self.showError(msg: "Password must be 6 digits or greater")
+                
+                return
+            }
+            let ref = FIRDatabase.database().reference(fromURL: "https://login-8d277.firebaseio.com/")
+            let values = ["name": name, "email":email]
+            ref.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if err != nil
+                {
+                    print(err)
+                    return
+                }
+                self.showError(msg: "Login Successfull")
+                
+            })
         })
+        
     }
+    func showError(msg : String)
+    {
+        let alert = UIAlertController.init(title: "Login/Register", message: msg, preferredStyle: .alert)
+        let alertAction = UIAlertAction.init(title: "Dismiss", style: .default, handler:nil)
+        alert.addAction(alertAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+
 }
 extension LoginViewController : UITextFieldDelegate
 {

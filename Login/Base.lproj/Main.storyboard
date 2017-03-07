@@ -51,7 +51,7 @@
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGi-cm-g1I">
                                                 <rect key="frame" x="0.0" y="101" width="319" height="1"/>
@@ -128,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="738" y="-67"/>
+            <point key="canvasLocation" x="89" y="269"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="WM9-iw-EtH">
@@ -163,7 +163,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ml-Xt-dBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6" y="-67"/>
+            <point key="canvasLocation" x="-338" y="269"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GoO-K9-nV4">
