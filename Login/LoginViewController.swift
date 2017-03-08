@@ -8,15 +8,21 @@
 
 import UIKit
 import Firebase
-
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
+   
+    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var segmentController: UISegmentedControl!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var entryView: UIView!
+    @IBOutlet weak var activityindicator: UIActivityIndicatorView!
+    
+    var heightContraint : NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +32,21 @@ class LoginViewController: UIViewController {
         nameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        activityindicator.isHidden = true
+        fbLoginButton.layer.cornerRadius = 5
+        registerButton.layer.cornerRadius = 5
+        heightContraint = entryView.heightAnchor.constraint(equalToConstant: 80)
+        heightContraint?.isActive  = true
+        nameTextField.isHidden = true
+        fbLoginButton.delegate = self
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        if FIRAuth.auth()?.currentUser?.uid != nil
+        {
+            self.showAlert(msg: "/(FIRAuth.auth()?.currentUser?.uid")
+            performSegue(withIdentifier: "Entry", sender: self)
+        }
     }
     override var preferredStatusBarStyle: UIStatusBarStyle
     {
@@ -33,8 +54,20 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func registerPressed(_ sender: Any) {
-        
-        
+        activityindicator.isHidden = false
+        activityindicator.startAnimating()
+        if segmentController.selectedSegmentIndex == 0
+        {
+            handleLogin()
+        }
+        else
+        {
+            handleRegister()
+        }
+    }
+    
+    func handleRegister()
+    {
         guard let email = emailTextField.text,  let password = passwordTextField.text, let name = nameTextField.text else
         {
             print("Form Entries are not valid")
@@ -44,8 +77,7 @@ class LoginViewController: UIViewController {
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             if error != nil
             {
-                self.showAlert(msg: "Password must be of 6 digits or greater")
-                
+                self.showAlert(msg: "Invalid Regsteration Details!")
                 return
             }
             guard let uid = user?.uid else
@@ -59,13 +91,35 @@ class LoginViewController: UIViewController {
             users.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 if err != nil
                 {
-                    print(err)
+                    let errorString = err.debugDescription
+                    print(errorString)
                     return
                 }
-                self.showAlert(msg: name + " registered successfully!")
+                self.activityindicator.stopAnimating()
+                self.performSegue(withIdentifier: "Entry", sender: self)
             })
         })
+        
+
     }
+    
+    func handleLogin()
+    {
+        guard let email = emailTextField.text , let password = passwordTextField.text else
+        {
+            showAlert(msg: "Invalid Login Details!")
+            return
+        }
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (FIRUser, error) in
+            if error != nil
+            {
+                self.showAlert(msg: "Cant Login!")
+            }
+            self.activityindicator.stopAnimating()
+            self.performSegue(withIdentifier: "Entry", sender: self)
+        })
+    }
+    
     func showAlert(msg : String)
     {
         let alert = UIAlertController.init(title: "Login/Register", message: msg, preferredStyle: .alert)
@@ -75,22 +129,24 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func segmentControllerPressed(_ sender: Any) {
-        
+        self.heightContraint?.isActive = false
         let value = segmentController.titleForSegment(at: segmentController.selectedSegmentIndex)
         registerButton.setTitle(value, for: .normal)
         entryView.translatesAutoresizingMaskIntoConstraints = false
-        let height:CGFloat = segmentController.selectedSegmentIndex == 0 ? 100.00 : 150.00
-        let bool = segmentController.selectedSegmentIndex == 0 ? true : false
-        self.nameTextField.isHidden = bool
+        let height:CGFloat = segmentController.selectedSegmentIndex == 0 ? 80.00 : 120.00
+        let hide = segmentController.selectedSegmentIndex == 0 ? true : false
+        self.nameTextField.isHidden = hide
+        self.fbLoginButton.isHidden = !hide
+        self.heightContraint = entryView.heightAnchor.constraint(equalToConstant: height)
+//        showAlert(msg: "\(height)")
+        self.heightContraint?.isActive = true
         
-        let heightContraint = entryView.heightAnchor.constraint(equalToConstant: height)
-        heightContraint.isActive = true
-        heightContraint.isActive = false
-
-
-
-//        self.showAlert(msg: "height changed \(height)")
-    }
+        
+        //MARK: clearing text field entries
+        self.nameTextField.text = ""
+        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
+         }
 }
 extension LoginViewController : UITextFieldDelegate
 {
@@ -99,4 +155,17 @@ extension LoginViewController : UITextFieldDelegate
         return true
     }
 }
+extension LoginViewController : FBSDKLoginButtonDelegate
+{
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        showAlert(msg: "Logged Out Successfully")
+    }
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil
+        {
+            showAlert(msg: "Canot Login")
+        }
+    }
+}
+
 

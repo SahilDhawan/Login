@@ -7,34 +7,35 @@
 //
 
 import UIKit
+import Firebase
 
-class MainViewController: UITableViewController {
+class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if FIRAuth.auth()?.currentUser?.uid == nil
+        {
+            handleSignOut()
+        }
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
     }
-    
-    @IBAction func logOutPressed(_ sender: Any) {
-        let login = self.storyboard?.instantiateViewController(withIdentifier: "Login") as! LoginViewController
-        self.navigationController?.pushViewController(login, animated: true)
-    
+    @IBAction func signOutPressed(_ sender: Any) {
+        handleSignOut()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func handleSignOut()
+    {
+        do
+        {
+            try FIRAuth.auth()?.signOut()
+        } catch let error
+        {
+            print(error.localizedDescription)
+            return
+        }
+        self.performSegue(withIdentifier: "SignOut", sender: self)
     }
-    */
-
 }
