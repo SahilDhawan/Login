@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA3B13A11E6FE5B600F05BA9 /* sd copy.png in Resources */ = {isa = PBXBuildFile; fileRef = BA3B13A01E6FE5B600F05BA9 /* sd copy.png */; };
 		BADC31C61E6EBAF6004ED788 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC31C51E6EBAF6004ED788 /* AppDelegate.swift */; };
 		BADC31C81E6EBAF6004ED788 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADC31C71E6EBAF6004ED788 /* LoginViewController.swift */; };
 		BADC31CB1E6EBAF6004ED788 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BADC31C91E6EBAF6004ED788 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		72F5BDF402459F59384C2DD7 /* Pods-Login.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Login.release.xcconfig"; path = "Pods/Target Support Files/Pods-Login/Pods-Login.release.xcconfig"; sourceTree = "<group>"; };
 		9736B13C106C8EC29D89B5B0 /* Pods_Login.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Login.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3B13A01E6FE5B600F05BA9 /* sd copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sd copy.png"; sourceTree = "<group>"; };
 		BADC31C21E6EBAF6004ED788 /* Login.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Login.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BADC31C51E6EBAF6004ED788 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BADC31C71E6EBAF6004ED788 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				BADC31C71E6EBAF6004ED788 /* LoginViewController.swift */,
 				BADC31D71E6EC8CB004ED788 /* MainViewController.swift */,
 				BADC31C91E6EBAF6004ED788 /* Main.storyboard */,
+				BA3B13A01E6FE5B600F05BA9 /* sd copy.png */,
 				BADC31CC1E6EBAF6004ED788 /* Assets.xcassets */,
 				BADC31CE1E6EBAF6004ED788 /* LaunchScreen.storyboard */,
 				BADC31D11E6EBAF6004ED788 /* Info.plist */,
@@ -167,6 +170,7 @@
 				BADC31D01E6EBAF6004ED788 /* LaunchScreen.storyboard in Resources */,
 				BADC31CD1E6EBAF6004ED788 /* Assets.xcassets in Resources */,
 				BADC31DA1E6EE634004ED788 /* GoogleService-Info.plist in Resources */,
+				BA3B13A11E6FE5B600F05BA9 /* sd copy.png in Resources */,
 				BADC31CB1E6EBAF6004ED788 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
